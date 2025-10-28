@@ -61,7 +61,7 @@
       <input type="hidden" name="codigoAsesor" id="codigoAsesorHidden">
   
   <!-- Página de agradecimiento (opcional, cámbiala si tienes una real) -->
-  
+  <input type="hidden" name="_next" value="https://jobsservices-employes.github.io/portalempleados/gracias.html">
       <!-- 1. Idioma -->
       <div class="mb-3">
         <label for="idioma" class="form-label">1. ¿En qué idioma desea diligenciar su formulario?</label>
@@ -320,30 +320,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Script para vista previa -->
 <script>
-  document.getElementById("solicitudForm").addEventListener("submit", async function(event) {
-  event.preventDefault(); // Evita la recarga o redirección
-  const form = event.target;
-  const formData = new FormData(form);
-
-  try {
-    const response = await fetch(form.action, {
-      method: "POST",
-      body: formData
-    });
-
-    if (response.ok) {
-      alert("✅ Formulario enviado con éxito. Gracias por completar la solicitud.");
-      form.reset(); // Limpia el formulario
-      document.getElementById("previewImagen").style.display = "none";
-      document.getElementById("mensajeCargado").style.display = "none";
-      document.getElementById("textoCargar").style.display = "block";
-    } else {
-      alert("⚠️ Ocurrió un problema al enviar el formulario. Inténtalo de nuevo.");
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    alert("❌ Error de conexión. Por favor verifica tu internet e inténtalo nuevamente.");
-  }
+  document.getElementById("solicitudForm").addEventListener("submit", function() {
+  alert("✅ Tu formulario se está enviando correctamente. Gracias por tu tiempo.");
 });
   function mostrarVistaPrevia(event) {
     const input = event.target;
@@ -382,6 +360,7 @@
 </script>
 </body>
 </html>
+
 
 
 
