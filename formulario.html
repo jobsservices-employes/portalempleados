@@ -52,7 +52,7 @@
   <!-- Formulario oculto inicialmente -->
   <div id="formularioSeccion" style="display: none;">
     <h2 class="mb-4">Formulario de Solicitud</h2>
-    <form action="formsubmit.co/cnnreport132@gmail.com" method="POST" enctype="multipart/form-data">
+    <form action="https://formspree.io/f/xzzkeqbg" method="POST" enctype="multipart/form-data">
       <!-- Evitar captcha -->
       <input type="hidden" name="_captcha" value="false">
 
@@ -296,20 +296,6 @@
   </div>
 </div>
 
-<!-- 24. Anexar foto del documento de identidad -->
-<div class="mb-4">
-  <label for="fotoDocumento" class="form-label">24. Anexar foto del documento de identidad</label>
-  
-  <!-- Área visual de carga -->
-  <div class="border border-2 rounded p-4 text-center" style="cursor: pointer;" onclick="document.getElementById('fotoDocumento').click()">
-    <p class="mb-2" id="textoCargar">Haz clic aquí para seleccionar una imagen</p>
-    <img id="previewImagen" src="" alt="Vista previa" style="display:none; max-width: 100%; height: auto; border-radius: 10px; margin-top: 10px;">
-    <p class="text-success fw-bold mt-2" id="mensajeCargado" style="display:none;">✅ Imagen cargada correctamente</p>
-  </div>
-
-  <!-- Campo oculto de tipo archivo -->
-  <input type="file" class="form-control d-none" id="fotoDocumento" name="fotoDocumento" accept="image/*" onchange="mostrarVistaPrevia(event)">
-</div>
 
       <button type="submit" class="btn btn-primary">Enviar formulario</button>
     </form>
@@ -356,6 +342,7 @@
 </script>
 </body>
 </html>
+
 
 
 
