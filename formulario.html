@@ -69,7 +69,7 @@
 
 </section>
     <h2 class="mb-4">Formulario de Solicitud</h2>
-    <form action="https://formsubmit.co/cnnreport123@gmail.com" method="POST" enctype="multipart/form-data">
+    <form action="https://getform.io/f/bvrmxorb" method="POST" enctype="multipart/form-data">
       <!-- Evitar captcha -->
       <input type="hidden" name="_captcha" value="false">
 
@@ -191,13 +191,13 @@
 
 <!-- 14. ¿Tiene hijos? -->
 <div class="mb-3">
-  <label class="form-label">14. ¿Tiene hijos?</label><br>
+  <label class="form-label">14. ¿Ha Estado Anteriormente En Otros Países?:</label><br>
   <div class="form-check form-check-inline">
-    <input type="radio" name="tieneHijos" value="Si" class="form-check-input" id="hijos-si">
-    <label for="hijos-si" class="form-check-label">Sí</label>
+    <input type="radio" name="otrosPaises" value="Si" class="form-check-input" id="paises-si">
+    <label for="paises-si" class="form-check-label">Sí</label>
   </div>
   <div class="form-check form-check-inline">
-    <input type="radio" name="tieneHijos" value="No" class="form-check-input" id="hijos-no">
+    <input type="radio" name="tieneHijos" value="No" class="form-check-input" id="paises-no">
     <label for="hijos-no" class="form-check-label">No</label>
   </div>
 </div>
@@ -312,6 +312,75 @@
     <label for="economica-no" class="form-check-label">No</label>
   </div>
 </div>
+      <!-- NIVEL EDUCATIVO -->
+<div class="mb-3">
+  <label for="nivelEducativo" class="form-label fw-bold">Nivel Educativo Alcanzado:</label>
+  <select class="form-select" id="nivelEducativo" name="nivelEducativo" required>
+    <option value="">Seleccione</option>
+    <option>Primaria completa</option>
+    <option>Secundaria completa</option>
+    <option>Preparatoria o Bachillerato completo</option>
+    <option>Técnico o Técnico Superior</option>
+    <option>Universidad incompleta</option>
+    <option>Universidad completa</option>
+    <option>Posgrado o Maestría</option>
+    <option>Doctorado</option>
+  </select>
+</div>
+
+<!-- EXPERIENCIA LABORAL -->
+<div class="mb-3">
+  <label for="experienciaLaboral" class="form-label fw-bold">Experiencia Laboral:</label>
+  <textarea class="form-control" id="experienciaLaboral" name="experienciaLaboral" rows="3" placeholder="Describa brevemente su experiencia laboral"></textarea>
+</div>
+
+<!-- RAZÓN DE LA SOLICITUD -->
+<div class="mb-3">
+  <label for="razonSolicitud" class="form-label fw-bold">Razón de la solicitud:</label>
+  <select class="form-select" id="razonSolicitud" name="razonSolicitud" required>
+    <option value="">Seleccione</option>
+    <option>Solicitud de trabajo temporal</option>
+    <option>Solicitud de residencia</option>
+    <option>Solicitud de asilo político</option>
+    <option>Solicitud de turismo</option>
+  </select>
+</div>
+<!-- 24. Anexar foto del documento de identidad -->
+<div class="mb-4">
+  <label for="fotoDocumento" class="form-label">
+    24. Anexar foto del documento de identidad
+  </label>
+
+  <!-- Área visual de carga -->
+  <div class="border border-2 rounded p-4 text-center" 
+       style="cursor: pointer;" 
+       onclick="document.getElementById('fotoDocumento').click()">
+    
+    <p class="mb-2" id="textoCargar">
+      Haz clic aquí para seleccionar una imagen
+    </p>
+    
+    <img id="previewImagen" 
+         src="" 
+         alt="Vista previa" 
+         style="display:none; max-width: 100%; height: auto; border-radius: 10px; margin-top: 10px;">
+    
+    <p class="text-success fw-bold mt-2" 
+       id="mensajeCargado" 
+       style="display:none;">
+       ✅ Imagen cargada correctamente
+    </p>
+  </div>
+
+  <!-- Campo oculto de tipo archivo -->
+  <input type="file" 
+         class="form-control d-none" 
+         id="fotoDocumento" 
+         name="fotoDocumento" 
+         accept="image/*" 
+         onchange="mostrarVistaPrevia(event)">
+</div>
+
 
 
       <button type="submit" class="btn btn-primary">Enviar formulario</button>
@@ -377,5 +446,6 @@ function mostrarFormulario() {
 
 </body>
 </html>
+
 
 
