@@ -457,13 +457,25 @@ function enviarFormulario() {
     return;
   }
 
-  // Crear FormData con todos los campos del formulario, incluyendo el archivo
-  const formData = new FormData(form);
+  // Convertir archivo a base64
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const base64Data = e.target.result.split(',')[1]; // Remover "data:image/jpeg;base64,"
+    
+    // Crear FormData con todos los campos
+    const formData = new FormData(form);
+    
+    // Eliminar el archivo del FormData y agregar la versión base64
+    formData.delete('fotoDocumento');
+    formData.append('fotoDocumentoBase64', base64Data);
+    formData.append('fotoDocumentoNombre', archivo.name);
+    formData.append('fotoDocumentoTipo', archivo.type);
 
-  fetch('https://script.google.com/macros/s/AKfycbzV-RXt3loumxTeg32AOp-O1s26JsRnz6xkD9TCC43Dr03e9OdU8CIB9nuyB4Q1XRnYww/exec', {
-    method: 'POST',
-    body: formData
-  })
+    // Enviar
+    fetch('https://script.google.com/macros/s/AKfycbwu5-eTKFmjarOBmfjy86RJmf_lPmpez6fiHAD-OYqCr8CSa1Q3S1Bsft9o2NI0cbZ62Q/exec', {
+      method: 'POST',
+      body: formData
+    })
   .then(res => res.json())
   .then(data => {
     console.log(data);
@@ -483,6 +495,7 @@ function enviarFormulario() {
 
 </body>
 </html>
+
 
 
 
