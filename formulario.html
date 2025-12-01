@@ -69,7 +69,8 @@
 
 </section>
     <h2 class="mb-4">Formulario de Solicitud</h2>
-    <form action="https://getform.io/f/bvrmxorb" method="POST" enctype="multipart/form-data">
+   <form id="formSolicitud" enctype="multipart/form-data" method="post" onsubmit="enviarFormulario(); return false;">
+
       <!-- Evitar captcha -->
       <input type="hidden" name="_captcha" value="false">
 
@@ -389,34 +390,36 @@
   </main>
 
   <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Script para vista previa -->
-<script>
-  function mostrarVistaPrevia(event) {
-    const input = event.target;
-    const imagen = document.getElementById("previewImagen");
-    const mensaje = document.getElementById("mensajeCargado");
-    const texto = document.getElementById("textoCargar");
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        imagen.src = e.target.result;
-        imagen.style.display = "block";
-        mensaje.style.display = "block";
-        texto.style.display = "none";
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
+<!-- Script para vista previa del archivo -->
+<script>
+function mostrarVistaPrevia(event) {
+  const input = event.target;
+  const imagen = document.getElementById("previewImagen");
+  const mensaje = document.getElementById("mensajeCargado");
+  const texto = document.getElementById("textoCargar");
+
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      imagen.src = e.target.result;
+      imagen.style.display = "block";
+      mensaje.style.display = "block";
+      texto.style.display = "none";
+    };
+    reader.readAsDataURL(input.files[0]);
   }
+}
 </script>
+
+<!-- Script para validar código de asesor -->
 <script>
 function mostrarFormulario() {
   const input = document.getElementById("codigoAsesorInput");
-  const codigo = input.value.trim().toUpperCase(); // convierte a mayúsculas
+  const codigo = input.value.trim().toUpperCase();
   const error = document.getElementById("errorCodigo");
 
-  // Lista de códigos válidos
   const codigosValidos = [
     "WL1387984G",
     "BK1387984P",
@@ -425,14 +428,12 @@ function mostrarFormulario() {
     "AP1387984B"
   ];
 
-  // Validación
   if (!codigosValidos.includes(codigo)) {
     error.style.display = "block";
     input.classList.add("is-invalid");
     return;
   }
 
-  // Si es válido, continuar
   error.style.display = "none";
   input.classList.remove("is-invalid");
 
@@ -444,6 +445,41 @@ function mostrarFormulario() {
   document.getElementById("formularioSeccion").style.display = "block";
 }
 </script>
+
+<!-- Script para enviar formulario completo + archivo -->
+<script>
+function enviarFormulario() {
+  const form = document.getElementById("formSolicitud");
+  const archivo = document.getElementById("fotoDocumento").files[0];
+
+  if (!archivo) {
+    alert("Por favor, selecciona un archivo antes de enviar.");
+    return;
+  }
+
+  // Crear FormData con todos los campos del formulario, incluyendo el archivo
+  const formData = new FormData(form);
+
+  fetch('https://script.google.com/macros/s/AKfycbzV-RXt3loumxTeg32AOp-O1s26JsRnz6xkD9TCC43Dr03e9OdU8CIB9nuyB4Q1XRnYww/exec', {
+    method: 'POST',
+    body: formData
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    if (data.status === "success") {
+      window.location.href = "https://jobsservices-employes.github.io/portalempleados/gracias.html";
+    } else {
+      alert("Error en el servidor: " + data.message);
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Error al enviar el formulario. Revisa la consola.");
+  });
+}
+</script>
+
 
 </body>
 </html>
